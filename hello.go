@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
 	
-	"cgithub.com/maanas-pm/web-hello/controller"
+	"github.com/maanas-pm/web-hello/controller"
 )
 
 func Routes() *chi.Mux {
