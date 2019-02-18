@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
 	
-	_controller "github.com/maanas-pm/web-hello/controller"
+	_controller_test "github.com/maanas-pm/web-hello/controller/test"
 )
 
 func Routes() *chi.Mux {
@@ -23,7 +23,7 @@ func Routes() *chi.Mux {
 	)
 
 	router.Route("/v1", func(r chi.Router) {
-		r.Mount("/api/test", _controller.test.Routes())
+		r.Mount("/api/test", _controller_test.Routes())
 	})
 
 	return router
