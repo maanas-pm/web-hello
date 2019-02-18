@@ -1,9 +1,16 @@
-FROM golang
+FROM golang:latest
 
-ADD . /go/src/github.com/maanas-pm/web-hello
+WORKDIR /go/src/github.com/maanas-pm/web-hello
+
+ADD . .
+
+WORKDIR /go/src/github.com/maanas-pm/web-hello
+
 RUN go get github.com/spf13/viper
+
 RUN go install github.com/maanas-pm/web-hello
 
-EXPOSE 8082
-
 ENTRYPOINT /go/bin/web-hello
+
+EXPOSE 8080
+
