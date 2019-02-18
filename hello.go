@@ -30,7 +30,7 @@ func Routes() *chi.Mux {
 }
 
 func init() {
-        viper.SetConfigFile(`config\config.json`)
+        viper.SetConfigFile(`config/config.json`)
         err := viper.ReadInConfig()
 
         if err != nil {
