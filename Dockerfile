@@ -1,8 +1,8 @@
 FROM golang
 
-ADD . /go/src/github.com/maanas-pm/web-hello/src
-
-RUN go install github.com/maanas-pm/web-hello/src
+ADD . /go/src/github.com/maanas-pm/web-hello
+RUN go get github.com/spf13/viper
+RUN go install github.com/maanas-pm/web-hello
 
 EXPOSE 8082
 
