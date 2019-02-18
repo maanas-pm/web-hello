@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
 	
-	"github.com/maanas-pm/web-hello/controller"
+	_controller "github.com/maanas-pm/web-hello/controller"
 )
 
 func Routes() *chi.Mux {
@@ -23,14 +23,15 @@ func Routes() *chi.Mux {
 	)
 
 	router.Route("/v1", func(r chi.Router) {
-		r.Mount("/api/test", controller.Routes())
+		r.Mount("/api/test", _controller.test.Routes())
 	})
 
 	return router
 }
 
 func init() {
-        viper.SetConfigFile(`config.json`)
+        viper.SetConfigFile(`config`)
+	viper.AddConfigPath(`config`)
         err := viper.ReadInConfig()
 
         if err != nil {
