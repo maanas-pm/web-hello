@@ -40,8 +40,8 @@ func init() {
         if viper.GetBool(`debug`) {
                 fmt.Println("Service RUN on DEBUG mode")
         }
-	fmt.PrintLn(viper.GetString("etcd.address")
-        fmt.PrintLn(viper.GetString("etcd.port")
+	fmt.Println(viper.GetString("etcd.address"))
+        fmt.Println(viper.GetString("etcd.port"))
 	if (viper.GetBool(`etcd`) && viper.GetBool(`etcd.address`) && viper.GetBool(`etcd.port`)){
 		var etcd_url = viper.GetString(`etcd.address`) + viper.GetString(`etcd.port`)
 		fmt.Println(etcd_url)
