@@ -44,16 +44,15 @@ func init() {
                 fmt.Println("Service RUN on DEBUG mode")
         }
 	
-	if ( viper.GetBool(`etcd.address`) && viper.GetBool(`etcd.port`)){
-		var etcd_url = viper.GetString(`etcd.address`) + viper.GetString(`etcd.port`)
-		fmt.Println(etcd_url)
-		cfg := client.Config{
-			Endpoints:               []string{etcd_url},
-			Transport:               client.DefaultTransport,
-			// set timeout per request to fail fast when the target endpoint is unavailable
-			HeaderTimeoutPerRequest: time.Second,
-		}
-		c, err := client.New(cfg)
+	var etcd_url = viper.GetString(`etcd.address`) + viper.GetString(`etcd.port`)
+	fmt.Println(etcd_url)
+	cfg := client.Config{
+		Endpoints:               []string{etcd_url},
+		Transport:               client.DefaultTransport,
+		// set timeout per request to fail fast when the target endpoint is unavailable
+		HeaderTimeoutPerRequest: time.Second,
+	}
+	c, err := client.New(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -77,7 +76,6 @@ func init() {
 		log.Printf("Get is done. Metadata is %q\n", resp)
 		// print value
 		log.Printf("%q key has %q value\n", resp.Node.Key, resp.Node.Value)
-	}
 	}
 
 }
