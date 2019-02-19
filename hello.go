@@ -42,7 +42,7 @@ func init() {
         }
 
 	if (viper.GetBool(`etcd`) && viper.GetBool(`etcd.address`) && viper.GetBool(`etcd.port`)){
-		var etcd_url = viper.get("etcd.address") + viper.get("etcd.port")
+		var etcd_url = viper.Get("etcd.address") + viper.Get("etcd.port")
 		fmt.Println(etcd_url)
 	}
 
