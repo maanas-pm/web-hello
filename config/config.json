@@ -1,10 +1,8 @@
 {
   "debug": true,
-  "server": {
-    "address": ":9090"
-  },
-  "context":{
-    "timeout":2
+  "etcd": {
+    "address": "http://127.0.0.1"
+    "port": "2379"
   },
   "database": {
       "host": "mysql",
@@ -13,5 +11,4 @@
       "pass": "password",
       "name": "article"
   }
-
 }

@@ -41,6 +41,11 @@ func init() {
                 fmt.Println("Service RUN on DEBUG mode")
         }
 
+	if (viper.GetBool(`etcd`) && viper.GetBool(`etcd.address`) && viper.GetBool(`etcd.port`)){
+		var etcd_url = viper.get("etcd.address") + viper.get("etcd.port")
+		fmt.Println(etcd_url)
+	}
+
 }
 /*func hello(w http.ResponseWriter, r *http.Request){
 	if r.URL.Path != "/" {
