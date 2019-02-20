@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"FMT"
 	"net/http"
 	"log"
 	"time"
@@ -54,9 +55,8 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
     	if err != nil {
         	panic(err)
     	}
-	t.Time = time.Time
+	t.Time = time.Now()
 	t.Request = url
-	t.Response = w.Status
     	log.Println(t)
 	response := make(map[string]string)
 	response["message"] = "Created TODO successfully"
