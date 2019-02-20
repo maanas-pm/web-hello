@@ -10,7 +10,7 @@ import (
 	"github.com/go-chi/render"
 	"context"
 	"time"
-	"go.etcd.io/etcd/client"
+	//"go.etcd.io/etcd/client"
 	
 	_controller_test "github.com/maanas-pm/web-hello/controller/test"
 )
@@ -46,7 +46,7 @@ func init() {
 	
 	var etcd_url = viper.GetString(`etcd.address`) + ":" + viper.GetString(`etcd.port`)
 	fmt.Println(etcd_url)
-	cfg := client.Config{
+	/*cfg := client.Config{
 		Endpoints:               []string{etcd_url},
 		Transport:               client.DefaultTransport,
 		// set timeout per request to fail fast when the target endpoint is unavailable
@@ -94,27 +94,9 @@ func init() {
                 log.Printf("Get is done. Metadata is %q\n", resp)
                 // print value
                 log.Printf("%q key has %q value\n", resp.Node.Key, resp.Node.Value)
-        }
+        }*/
 }
-/*func hello(w http.ResponseWriter, r *http.Request){
-	if r.URL.Path != "/" {
-        http.Error(w, "404 not found.", http.StatusNotFound)
-        return
-    }
-switch r.Method {
-    case "GET":
-	fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
-    case "POST":
-	if err := r.ParseForm(); err != nil {
-            fmt.Fprintf(w, "ParseForm() err: %v", err)
-            return
-        }
-        fmt.Fprintf(w, "Post from website! r.PostFrom = %v\n", r.PostForm)
-    default:
-        fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
-}
-}
-*/
+
 func main() {
 	//http.HandleFunc("/", hello)
 	//http.ListenAndServe(":8082", nil)
