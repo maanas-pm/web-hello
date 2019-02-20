@@ -45,7 +45,7 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	requestDump, err := httputil.DumpRequest(req, true)
+	requestDump, err := httputil.DumpRequest(r, true)
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 	} else {
