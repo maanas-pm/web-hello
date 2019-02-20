@@ -2,7 +2,7 @@ package controller
 
 import (
 	"net/http"
-
+	"log"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
 )
@@ -39,6 +39,8 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
+        req.ParseForm()
+    	log.Println(req.Form)
 	response := make(map[string]string)
 	response["message"] = "Created TODO successfully"
 	render.JSON(w, r, response) // Return some demo response
