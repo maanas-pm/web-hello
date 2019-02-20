@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"github.com/spf13/viper"
+	//"github.com/spf13/viper"
         "log"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -33,7 +33,7 @@ func Routes() *chi.Mux {
 }
 
 func init() {
-        viper.SetConfigFile(`config/config.json`)
+        /*viper.SetConfigFile(`config/config.json`)
         err := viper.ReadInConfig()
 
         if err != nil {
@@ -45,7 +45,7 @@ func init() {
         }
 	
 	var etcd_url = viper.GetString(`etcd.address`) + ":" + viper.GetString(`etcd.port`)
-	fmt.Println(etcd_url)
+	fmt.Println(etcd_url)*/
 	/*cfg := client.Config{
 		Endpoints:               []string{etcd_url},
 		Transport:               client.DefaultTransport,
