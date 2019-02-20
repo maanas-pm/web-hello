@@ -44,7 +44,7 @@ func init() {
                 fmt.Println("Service RUN on DEBUG mode")
         }
 	
-	var etcd_url = viper.GetString(`etcd.address`) + viper.GetString(`etcd.port`)
+	var etcd_url = viper.GetString(`etcd.address`) + ":" + viper.GetString(`etcd.port`)
 	fmt.Println(etcd_url)
 	cfg := client.Config{
 		Endpoints:               []string{etcd_url},
@@ -77,7 +77,24 @@ func init() {
 		// print value
 		log.Printf("%q key has %q value\n", resp.Node.Key, resp.Node.Value)
 	}
-
+        log.Print("Setting '/foo' key with 'kafkastream_test' value")
+        resp, err := kapi.Put(context.Background(), "/foo", "kafkastream_test", nil)
+        if err != nil {
+                log.Fatal(err)
+        } else {
+                // print common key info
+                log.Printf("Set is done. Metadata is %q\n", resp)
+        }
+	log.Print("Getting '/foo' key value")
+        resp, err = kapi.Get(context.Background(), "/foo", nil)
+        if err != nil {
+                log.Fatal(err)
+        } else {
+                // print common key info
+                log.Printf("Get is done. Metadata is %q\n", resp)
+                // print value
+                log.Printf("%q key has %q value\n", resp.Node.Key, resp.Node.Value)
+        }
 }
 /*func hello(w http.ResponseWriter, r *http.Request){
 	if r.URL.Path != "/" {
