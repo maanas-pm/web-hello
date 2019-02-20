@@ -44,7 +44,7 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	url := fmt.Sprintf(“%v %v %v”, r.Method, r.URL, r.Proto)
+	url := fmt.Sprintf(“%s %s %s”, r.Method, r.URL, r.Proto)
 	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
         	panic(err)
