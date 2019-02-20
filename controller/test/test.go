@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 	"log"
+ 	"io/ioutil"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
 	"encoding/json"
@@ -41,7 +42,7 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	body, err := ioutil.ReadAll(req.Body)
+	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
         	panic(err)
     	}
