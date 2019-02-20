@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"net/http/httputil"
 	"log"
 	"time"
  	"io/ioutil"
@@ -44,7 +45,12 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	url := fmt.Sprintf(“%s %s %s”, r.Method, r.URL, r.Proto)
+	requestDump, err := httputil.DumpRequest(req, true)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+	} else {
+		fmt.Fprint(w, string(requestDump))
+	}
 	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
         	panic(err)
@@ -56,7 +62,7 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
         	panic(err)
     	}
 	t.Time = time.Now()
-	t.Request = url
+	t.Request = string(requestDump)
     	log.Println(t)
 	response := make(map[string]string)
 	response["message"] = "Created TODO successfully"
