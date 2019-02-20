@@ -5,8 +5,8 @@ import (
 	"log"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
-
-	//"https://github.com/maanas-pm/web-hello/models"
+	"encoding/json"
+	"https://github.com/maanas-pm/web-hello/models"
 )
 
 type Todo struct {
@@ -41,7 +41,17 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
-    	log.Println(r.Body)
+	body, err := ioutil.ReadAll(req.Body)
+    	if err != nil {
+        	panic(err)
+    	}
+    	log.Println(string(body))
+	var t models.Log
+	err = json.Unmarshal(body, &t)
+    	if err != nil {
+        	panic(err)
+    	}
+    	log.Println(t)
 	response := make(map[string]string)
 	response["message"] = "Created TODO successfully"
 	render.JSON(w, r, response) // Return some demo response
