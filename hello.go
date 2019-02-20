@@ -78,7 +78,7 @@ func init() {
 		log.Printf("%q key has %q value\n", resp.Node.Key, resp.Node.Value)
 	}
         log.Print("Setting '/foo' key with 'kafkastream_test' value")
-        resp, err := kapi.Put(context.Background(), "/foo", "kafkastream_test", nil)
+        resp, err = kapi.Set(context.Background(), "/foo", "kafkastream_test", nil)
         if err != nil {
                 log.Fatal(err)
         } else {
