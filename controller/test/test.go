@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 	"log"
+	"time"
  	"io/ioutil"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
@@ -42,8 +43,7 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	log.Println("Method : "+r.Method)
-	log.Printf("Req: %s %s\n",r.URL, r.URL.Path)
+	url := fmt.Sprintf(“%v %v %v”, r.Method, r.URL, r.Proto)
 	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
         	panic(err)
@@ -54,6 +54,9 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
     	if err != nil {
         	panic(err)
     	}
+	t.Time = time.Time
+	t.Request = url
+	t.Response = w.Status
     	log.Println(t)
 	response := make(map[string]string)
 	response["message"] = "Created TODO successfully"
