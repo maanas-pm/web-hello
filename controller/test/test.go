@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
 	"encoding/json"
-	"https://github.com/maanas-pm/web-hello/models"
+	"github.com/maanas-pm/web-hello/models"
 )
 
 type Todo struct {
