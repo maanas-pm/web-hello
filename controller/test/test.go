@@ -42,6 +42,8 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
+	log.Println("Method : "+r.Method)
+	log.Printf("Req: %s %s\n",r.URL, r.URL.Path)
 	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
         	panic(err)
