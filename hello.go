@@ -33,6 +33,7 @@ func Routes() *chi.Mux {
 }
 
 func init() {
+	fmt.Println("inside init")
         /*viper.SetConfigFile(`config/config.json`)
         err := viper.ReadInConfig()
 
