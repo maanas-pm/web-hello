@@ -68,14 +68,14 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
     	}
 	_, ok := m[t.Id]
 	if ok {
-		t.Time = time.Now()
-		t.Request = req
-		m[t.Id] = t
-		render.JSON(w, r, t)
-	} else {
 		response := make(map[string]string)
                 response["message"] = "Log Id already exists, cannot override logs"
                 render.JSON(w, r, response)
+	} else {
+		t.Time = time.Now()
+                t.Request = req
+                m[t.Id] = t
+                render.JSON(w, r, t)
 	}
 }
 
