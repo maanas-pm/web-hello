@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"log"
 	"net/http"
 	"time"
  	"io/ioutil"
@@ -60,6 +61,9 @@ func DeleteLog(w http.ResponseWriter, r *http.Request) {
         _, ok := m[i]
         if ok {
                 delete(m, i)
+		response := make(map[string]string)
+                response["message"] = "Requested log deleted"
+                render.JSON(w, r, response)
         } else {
                 response := make(map[string]string)
                 response["message"] = "Requested log not found"
@@ -94,8 +98,11 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
 
 func GetAllLogs(w http.ResponseWriter, r *http.Request) {
 	t := make([]models.Log, len(m))
-	for k, v := range m { 
+	log.Println(t)
+	for k, v := range m {
+		log.Println("key : "+k) 
 		if k > 0 {
+			log.Println(v)
 			t = append(t,v)
 		}
 	}
