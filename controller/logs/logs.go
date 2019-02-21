@@ -2,7 +2,6 @@ package controller
 
 import (
 	"net/http"
-	"log"
 	"time"
  	"io/ioutil"
 	"github.com/go-chi/chi"
