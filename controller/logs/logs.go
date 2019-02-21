@@ -64,12 +64,5 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
-	todos := []Todo{
-		{
-			Id:  "slug",
-			Title: "Hello world",
-			Body:  "Heloo world from planet earth",
-		},
-	}
 	render.JSON(w, r, m) // A chi router helper for serializing and returning json
 }
