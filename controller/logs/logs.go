@@ -20,13 +20,14 @@ type Todo struct {
 var m map[int64]models.Log
 
 func Routes() *chi.Mux {
-	m = make(map[int64]models.Log)
+	if m == nil{
+		m = make(map[int64]models.Log)
+	}
 	router := chi.NewRouter()
 	router.Get("/{todoID}", GetATodo)
 	router.Delete("/{todoID}", DeleteTodo)
 	router.Post("/", CreateTodo)
 	router.Get("/", GetAllTodos)
-	fmt.Println(m)
 	return router
 }
 
@@ -59,6 +60,7 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
     	}
 	t.Time = time.Now()
 	t.Request = req
+	m[t.Id] = t
 	render.JSON(w, r, t) // Return some demo response
 }
 
@@ -70,5 +72,5 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 			Body:  "Heloo world from planet earth",
 		},
 	}
-	render.JSON(w, r, todos) // A chi router helper for serializing and returning json
+	render.JSON(w, r, m) // A chi router helper for serializing and returning json
 }
