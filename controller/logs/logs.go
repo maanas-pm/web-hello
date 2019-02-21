@@ -100,7 +100,7 @@ func GetAllLogs(w http.ResponseWriter, r *http.Request) {
 	t := make([]models.Log, len(m))
 	log.Println(t)
 	for k, v := range m {
-		log.Println("key : "+k) 
+		log.Println("key : "+string(k)) 
 		if k > 0 {
 			log.Println(v)
 			t = append(t,v)
