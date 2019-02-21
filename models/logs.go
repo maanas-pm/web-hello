@@ -9,5 +9,5 @@ type Log struct {
     Time      time.Time	`json:"time"`
     Request   string	`json:"request"`
     Response  int	`json:"reswponse"`
-    Log_level String	`json:"log_level"`
+    Log_level string	`json:"log_level"`
 }
