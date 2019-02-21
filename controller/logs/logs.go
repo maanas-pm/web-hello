@@ -32,12 +32,13 @@ func Routes() *chi.Mux {
 
 func GetALog(w http.ResponseWriter, r *http.Request) {
 	todoID := chi.URLParam(r, "todoID")
-	todos := Todo{
-		Id:  todoID,
-		Title: "Hello world",
-		Body:  "Heloo world from planet earth",
+	val, ok := m[todoID]
+	if (ok){
+		render.JSON(w, r, todos)
 	}
-	render.JSON(w, r, todos) // A chi router helper for serializing and returning json
+	else{
+		render.JSON(w, r, {"message": "Requested log not found"})
+	}
 }
 
 func DeleteLog(w http.ResponseWriter, r *http.Request) {
@@ -57,15 +58,21 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
     	if err != nil {
         	panic(err)
     	}
-	t.Time = time.Now()
-	t.Request = req
-	m[t.Id] = t
-	render.JSON(w, r, t) // Return some demo response
+	val, ok := m[t.Id]
+	if(ok){
+		t.Time = time.Now()
+		t.Request = req
+		m[t.Id] = t
+		render.JSON(w, r, t)
+	}
+	else{
+		render.JSON(w, r, {"message": "Log Id already exists, cannot override logs"})
+	}
 }
 
 func GetAllLogs(w http.ResponseWriter, r *http.Request) {
 	t := make([]models.Log, len(m))
-	for k, v := range m { 
+	for _, v := range m { 
 		t = append(t,v)
 	}
 	render.JSON(w, r, t) // A chi router helper for serializing and returning json
