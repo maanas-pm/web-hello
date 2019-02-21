@@ -57,7 +57,7 @@ func DeleteLog(w http.ResponseWriter, r *http.Request) {
                 response["message"] = "Requested log id is not in int format"
                 render.JSON(w, r, response)
         }
-        val, ok := m[i]
+        _, ok := m[i]
         if ok {
                 delete(m, i)
         } else {
