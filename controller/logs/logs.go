@@ -52,7 +52,7 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, string(requestDump))
 	}
 	log.Println(requestDump)
-	req := r.Method + " " + r.Host + " "+ r.URL
+	req := r.Method + " " + r.Host + " "+ string(r.URL)
 	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
         	panic(err)
