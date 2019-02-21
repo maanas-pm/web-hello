@@ -64,7 +64,7 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAllLogs(w http.ResponseWriter, r *http.Request) {
-	var t [len(m)]models.Log
+	t := make([]models.Log, len(m))
 	for k, v := range m { 
 		t = append(t,v)
 	}
