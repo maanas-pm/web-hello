@@ -1,9 +1,7 @@
 package controller
 
 import (
-	"fmt"
 	"net/http"
-	"net/http/httputil"
 	"log"
 	"time"
  	"io/ioutil"
@@ -45,26 +43,18 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	requestDump, err := httputil.DumpRequest(r, true)
-	if err != nil {
-		fmt.Fprint(w, err.Error())
-	} else {
-		fmt.Fprint(w, string(requestDump))
-	}
-	log.Println(requestDump)
 	req := r.Method + " " + r.Host + " "+ r.URL.Path
 	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
         	panic(err)
     	}
-    	log.Println(string(body))
 	var t models.Log
 	err = json.Unmarshal(body, &t)
     	if err != nil {
         	panic(err)
     	}
 	t.Time = time.Now()
-	t.Request = string(req)
+	t.Request = req
 	render.JSON(w, r, t) // Return some demo response
 }
 
