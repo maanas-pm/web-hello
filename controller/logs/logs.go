@@ -50,9 +50,22 @@ func GetALog(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteLog(w http.ResponseWriter, r *http.Request) {
-	response := make(map[string]string)
-	response["message"] = "Deleted TODO successfully"
-	render.JSON(w, r, response) // Return some demo response
+	logId := chi.URLParam(r, "logId")
+        i, err := strconv.ParseInt(logId, 10, 64)
+        if err != nil {
+                response := make(map[string]string)
+                response["message"] = "Requested log id is not in int format"
+                render.JSON(w, r, response)
+        }
+        val, ok := m[i]
+        if ok {
+                delete(m, logId)
+        } else {
+                response := make(map[string]string)
+                response["message"] = "Requested log not found"
+                render.JSON(w, r, response)
+        }
+
 }
 
 func AddLog(w http.ResponseWriter, r *http.Request) {
@@ -81,8 +94,10 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
 
 func GetAllLogs(w http.ResponseWriter, r *http.Request) {
 	t := make([]models.Log, len(m))
-	for _, v := range m { 
-		t = append(t,v)
+	for k, v := range m { 
+		if k > 0 {
+			t = append(t,v)
+		}
 	}
 	render.JSON(w, r, t) // A chi router helper for serializing and returning json
 }
