@@ -33,10 +33,9 @@ func Routes() *chi.Mux {
 func GetALog(w http.ResponseWriter, r *http.Request) {
 	todoID := chi.URLParam(r, "todoID")
 	val, ok := m[todoID]
-	if (ok){
+	if ok {
 		render.JSON(w, r, todos)
-	}
-	else{
+	} else {
 		response := make(map[string]string)
 		response["message"] = "Requested log not found"
 		render.JSON(w, r, response)
@@ -61,13 +60,12 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
         	panic(err)
     	}
 	val, ok := m[t.Id]
-	if(ok){
+	if ok {
 		t.Time = time.Now()
 		t.Request = req
 		m[t.Id] = t
 		render.JSON(w, r, t)
-	}
-	else{
+	} else {
 		response := make(map[string]string)
                 response["message"] = "Log Id already exists, cannot override logs"
                 render.JSON(w, r, response)
