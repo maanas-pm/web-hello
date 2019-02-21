@@ -37,7 +37,9 @@ func GetALog(w http.ResponseWriter, r *http.Request) {
 		render.JSON(w, r, todos)
 	}
 	else{
-		render.JSON(w, r, {"message": "Requested log not found"})
+		response := make(map[string]string)
+		response["message"] = "Requested log not found"
+		render.JSON(w, r, response)
 	}
 }
 
@@ -66,7 +68,9 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
 		render.JSON(w, r, t)
 	}
 	else{
-		render.JSON(w, r, {"message": "Log Id already exists, cannot override logs"})
+		response := make(map[string]string)
+                response["message"] = "Log Id already exists, cannot override logs"
+                render.JSON(w, r, response)
 	}
 }
 
