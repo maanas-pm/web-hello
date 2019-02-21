@@ -66,7 +66,7 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
     	if err != nil {
         	panic(err)
     	}
-	val, ok := m[t.Id]
+	_, ok := m[t.Id]
 	if ok {
 		t.Time = time.Now()
 		t.Request = req
