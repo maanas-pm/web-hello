@@ -32,9 +32,9 @@ func Routes() *chi.Mux {
 
 func GetALog(w http.ResponseWriter, r *http.Request) {
 	todoID := chi.URLParam(r, "todoID")
-	val, ok := m[todoID]
+	val, ok := m[int64(todoID)]
 	if ok {
-		render.JSON(w, r, todos)
+		render.JSON(w, r, val)
 	} else {
 		response := make(map[string]string)
 		response["message"] = "Requested log not found"
