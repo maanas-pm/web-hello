@@ -51,6 +51,8 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Fprint(w, string(requestDump))
 	}
+	log.Println(requestDump)
+	req := r.Method + " " + r.Host + " "+ r.URL
 	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
         	panic(err)
@@ -62,11 +64,8 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
         	panic(err)
     	}
 	t.Time = time.Now()
-	t.Request = string(requestDump)
-    	log.Println(t)
-	response := make(map[string]string)
-	response["message"] = "Created TODO successfully"
-	render.JSON(w, r, response) // Return some demo response
+	t.Request = string(req)
+	render.JSON(w, r, t) // Return some demo response
 }
 
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
