@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"time"
  	"io/ioutil"
@@ -16,12 +17,16 @@ type Todo struct {
 	Body  string `json:"body"`
 }
 
+var m map[int64]models.Log
+
 func Routes() *chi.Mux {
+	m = make(map[int64]models.Log)
 	router := chi.NewRouter()
 	router.Get("/{todoID}", GetATodo)
 	router.Delete("/{todoID}", DeleteTodo)
 	router.Post("/", CreateTodo)
 	router.Get("/", GetAllTodos)
+	fmt.Println(m)
 	return router
 }
 
