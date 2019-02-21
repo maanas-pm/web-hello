@@ -12,7 +12,7 @@ import (
 	//"time"
 	//"go.etcd.io/etcd/client"
 	
-	_controller_test "github.com/maanas-pm/web-hello/controller/test"
+	_controller_logs "github.com/maanas-pm/web-hello/controller/logs"
 )
 
 func Routes() *chi.Mux {
@@ -26,7 +26,7 @@ func Routes() *chi.Mux {
 	)
 
 	router.Route("/v1", func(r chi.Router) {
-		r.Mount("/api/test", _controller_test.Routes())
+		r.Mount("/api/logs", _controller_logs.Routes())
 	})
 
 	return router

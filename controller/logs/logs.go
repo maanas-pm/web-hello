@@ -14,7 +14,7 @@ import (
 )
 
 type Todo struct {
-	Slug  string `json:"slug"`
+	Id  string `json:"id"`
 	Title string `json:"title"`
 	Body  string `json:"body"`
 }
@@ -31,7 +31,7 @@ func Routes() *chi.Mux {
 func GetATodo(w http.ResponseWriter, r *http.Request) {
 	todoID := chi.URLParam(r, "todoID")
 	todos := Todo{
-		Slug:  todoID,
+		Id:  todoID,
 		Title: "Hello world",
 		Body:  "Heloo world from planet earth",
 	}
@@ -72,7 +72,7 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 	todos := []Todo{
 		{
-			Slug:  "slug",
+			Id:  "slug",
 			Title: "Hello world",
 			Body:  "Heloo world from planet earth",
 		},
