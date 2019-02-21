@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
  	"io/ioutil"
+	"strconv"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
 	"encoding/json"
@@ -23,16 +24,22 @@ func Routes() *chi.Mux {
 		m = make(map[int64]models.Log)
 	}
 	router := chi.NewRouter()
-	router.Get("/{todoID}", GetALog)
-	router.Delete("/{todoID}", DeleteLog)
+	router.Get("/{logId}", GetALog)
+	router.Delete("/{logId}", DeleteLog)
 	router.Post("/", AddLog)
 	router.Get("/", GetAllLogs)
 	return router
 }
 
 func GetALog(w http.ResponseWriter, r *http.Request) {
-	todoID := chi.URLParam(r, "todoID")
-	val, ok := m[int64(todoID)]
+	logId := chi.URLParam(r, "logId")
+	i, err := strconv.ParseInt(logId, 10, 64)
+	if err != nil {
+    		response := make(map[string]string)
+                response["message"] = "Requested log id is not in int format"
+                render.JSON(w, r, response)
+	}
+	val, ok := m[i]
 	if ok {
 		render.JSON(w, r, val)
 	} else {
