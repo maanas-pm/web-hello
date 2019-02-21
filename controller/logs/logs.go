@@ -59,7 +59,7 @@ func DeleteLog(w http.ResponseWriter, r *http.Request) {
         }
         val, ok := m[i]
         if ok {
-                delete(m, logId)
+                delete(m, i)
         } else {
                 response := make(map[string]string)
                 response["message"] = "Requested log not found"
