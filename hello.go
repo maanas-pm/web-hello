@@ -63,7 +63,7 @@ func init() {
 	log.Print("Setting '"+ LOG_LEVEL +"' key with '"+ viper.GetString("debug") +"' value")
 	resp, err := kapi.Set(context.Background(), LOG_LEVEL, viper.GetString("debug"), nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	} else {
 		// print common key info
 		log.Printf("Set is done. Metadata is %q\n", resp)
@@ -72,7 +72,7 @@ func init() {
 	log.Print("Getting '"+ LOG_LEVEL +"' key value")
 	resp, err = kapi.Get(context.Background(), LOG_LEVEL, nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	} else {
 		// print common key info
 		log.Printf("Get is done. Metadata is %q\n", resp)
