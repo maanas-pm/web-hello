@@ -33,70 +33,75 @@ func Routes() *chi.Mux {
 }
 
 func GetALog(w http.ResponseWriter, r *http.Request) {
+	response := make(map[string]string)
 	logId := chi.URLParam(r, "logId")
 	i, err := strconv.ParseInt(logId, 10, 64)
 	if err != nil {
-    		response := make(map[string]string)
                 response["message"] = "Requested log id is not in int format"
+		render.Status(r, http.StatusBadRequest)
                 render.JSON(w, r, response)
 	} else {
 	val, ok := m[i]
 		if ok {
 			render.JSON(w, r, val)
 		} else {
-			response := make(map[string]string)
 			response["message"] = "Requested log not found"
+			render.Status(r, http.StatusBadRequest)
 			render.JSON(w, r, response)
 		}
 	}
 }
 
 func DeleteLog(w http.ResponseWriter, r *http.Request) {
+	response := make(map[string]string)
 	logId := chi.URLParam(r, "logId")
         i, err := strconv.ParseInt(logId, 10, 64)
         if err != nil {
                 response := make(map[string]string)
                 response["message"] = "Requested log id is not in int format"
+		render.Status(r, http.StatusBadRequest)
                 render.JSON(w, r, response)
         } else {
         	_, ok := m[i]
         	if ok {
                 	delete(m, i)
-			response := make(map[string]string)
                 	response["message"] = "Requested log deleted"
                 	render.JSON(w, r, response)
         	} else {
-                	response := make(map[string]string)
                 	response["message"] = "Requested log not found"
+			render.Status(r, http.StatusBadRequest)
                 	render.JSON(w, r, response)
         	}
 	}
 }
 
 func AddLog(w http.ResponseWriter, r *http.Request) {
+	response := make(map[string]string)
 	req := r.Method + " " + r.Host + " "+ r.URL.Path
 	body, err := ioutil.ReadAll(r.Body)
     	if err != nil {
-        	panic(err)
-    	}
+                response["message"] = err.Error()
+                render.Status(r, http.StatusBadRequest)
+                render.JSON(w, r, response)
+	}
 	var t models.Log
 	err = json.Unmarshal(body, &t)
     	if err != nil {
-        	response := make(map[string]string)
                 response["message"] = err.Error()
 		render.Status(r, http.StatusBadRequest) 
                 render.JSON(w, r, response)
-    	}
-	_, ok := m[t.Id]
-	if ok {
-		response := make(map[string]string)
-                response["message"] = "Log Id already exists, cannot override logs"
-                render.JSON(w, r, response)
-	} else {
-		t.Time = time.Now()
-                t.Request = req
-                m[t.Id] = t
-                render.JSON(w, r, t)
+    	} else {
+		_, ok := m[t.Id]
+		if ok {
+	                response["message"] = "Log Id already exists, cannot override logs"
+        	        render.Status(r, http.StatusBadRequest)
+			render.JSON(w, r, response)
+		} else {
+			t.Time = time.Now()
+	                t.Request = req
+	                m[t.Id] = t
+	                render.JSON(w, r, t)
+		}
 	}
 }
 
