@@ -3,18 +3,21 @@ package main
 import (
 	"fmt"
 	"net/http"
-	//"github.com/spf13/viper"
+	"github.com/spf13/viper"
         "log"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
-	//"context"
-	//"time"
-	//"go.etcd.io/etcd/client"
+	"context"
+	"time"
+	"go.etcd.io/etcd/client"
 	
 	_controller_logs "github.com/maanas-pm/web-hello/controller/logs"
 )
 
+const (
+	LOG_LEVEL = "/sample-app/log_level"
+)
 func Routes() *chi.Mux {
 	router := chi.NewRouter()
 	router.Use(
@@ -34,7 +37,7 @@ func Routes() *chi.Mux {
 
 func init() {
 	fmt.Println("inside init")
-        /*viper.SetConfigFile(`config/config.json`)
+        viper.SetConfigFile(`config/config.json`)
         err := viper.ReadInConfig()
 
         if err != nil {
@@ -46,8 +49,7 @@ func init() {
         }
 	
 	var etcd_url = viper.GetString(`etcd.address`) + ":" + viper.GetString(`etcd.port`)
-	fmt.Println(etcd_url)*/
-	/*cfg := client.Config{
+	cfg := client.Config{
 		Endpoints:               []string{etcd_url},
 		Transport:               client.DefaultTransport,
 		// set timeout per request to fail fast when the target endpoint is unavailable
@@ -58,18 +60,17 @@ func init() {
 		log.Fatal(err)
 	}
 	kapi := client.NewKeysAPI(c)
-	// set "/foo" key with "bar" value
-	log.Print("Setting '/foo' key with 'bar' value")
-	resp, err := kapi.Set(context.Background(), "/foo", "bar", nil)
+	log.Print("Setting '"+ LOG_LEVEL +"' key with '"+ viper.GetString("debug") +"' value")
+	resp, err := kapi.Set(context.Background(), LOG_LEVEL, viper.GetString("debug"), nil)
 	if err != nil {
 		log.Fatal(err)
 	} else {
 		// print common key info
 		log.Printf("Set is done. Metadata is %q\n", resp)
 	}
-	// get "/foo" key's value
-	log.Print("Getting '/foo' key value")
-	resp, err = kapi.Get(context.Background(), "/foo", nil)
+	// get "/sample-app/log_level" key's value
+	log.Print("Getting '"+ LOG_LEVEL +"' key value")
+	resp, err = kapi.Get(context.Background(), LOG_LEVEL, nil)
 	if err != nil {
 		log.Fatal(err)
 	} else {
@@ -78,24 +79,6 @@ func init() {
 		// print value
 		log.Printf("%q key has %q value\n", resp.Node.Key, resp.Node.Value)
 	}
-        log.Print("Setting '/foo' key with 'kafkastream_test' value")
-        resp, err = kapi.Set(context.Background(), "/foo", "kafkastream_test", nil)
-        if err != nil {
-                log.Fatal(err)
-        } else {
-                // print common key info
-                log.Printf("Set is done. Metadata is %q\n", resp)
-        }
-	log.Print("Getting '/foo' key value")
-        resp, err = kapi.Get(context.Background(), "/foo", nil)
-        if err != nil {
-                log.Fatal(err)
-        } else {
-                // print common key info
-                log.Printf("Get is done. Metadata is %q\n", resp)
-                // print value
-                log.Printf("%q key has %q value\n", resp.Node.Key, resp.Node.Value)
-        }*/
 }
 
 func main() {
