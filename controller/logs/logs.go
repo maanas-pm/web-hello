@@ -39,14 +39,15 @@ func GetALog(w http.ResponseWriter, r *http.Request) {
     		response := make(map[string]string)
                 response["message"] = "Requested log id is not in int format"
                 render.JSON(w, r, response)
-	}
-	val, ok := m[i]
-	if ok {
-		render.JSON(w, r, val)
 	} else {
-		response := make(map[string]string)
-		response["message"] = "Requested log not found"
-		render.JSON(w, r, response)
+	val, ok := m[i]
+		if ok {
+			render.JSON(w, r, val)
+		} else {
+			response := make(map[string]string)
+			response["message"] = "Requested log not found"
+			render.JSON(w, r, response)
+		}
 	}
 }
 
@@ -57,19 +58,19 @@ func DeleteLog(w http.ResponseWriter, r *http.Request) {
                 response := make(map[string]string)
                 response["message"] = "Requested log id is not in int format"
                 render.JSON(w, r, response)
-        }
-        _, ok := m[i]
-        if ok {
-                delete(m, i)
-		response := make(map[string]string)
-                response["message"] = "Requested log deleted"
-                render.JSON(w, r, response)
         } else {
-                response := make(map[string]string)
-                response["message"] = "Requested log not found"
-                render.JSON(w, r, response)
-        }
-
+        	_, ok := m[i]
+        	if ok {
+                	delete(m, i)
+			response := make(map[string]string)
+                	response["message"] = "Requested log deleted"
+                	render.JSON(w, r, response)
+        	} else {
+                	response := make(map[string]string)
+                	response["message"] = "Requested log not found"
+                	render.JSON(w, r, response)
+        	}
+	}
 }
 
 func AddLog(w http.ResponseWriter, r *http.Request) {
@@ -81,7 +82,10 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
 	var t models.Log
 	err = json.Unmarshal(body, &t)
     	if err != nil {
-        	panic(err)
+        	response := make(map[string]string)
+                response["message"] = err.Error()
+		render.Status(r, http.StatusBadRequest) 
+                render.JSON(w, r, response)
     	}
 	_, ok := m[t.Id]
 	if ok {

@@ -1,0 +1,25 @@
+mode: set
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:23.24,24.13 1 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:27.2,32.15 6 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:24.13,26.3 1 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:35.54,38.16 3 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:38.16,42.3 3 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:42.8,44.9 2 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:44.9,46.4 1 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:46.9,50.4 3 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:54.56,57.23 3 0
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:57.23,61.10 3 0
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:61.15,63.16 2 0
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:63.16,68.11 4 0
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:68.16,72.11 3 0
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:76.53,79.20 3 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:82.2,84.20 3 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:90.2,91.8 2 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:79.20,80.20 1 0
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:84.20,89.7 4 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:91.8,95.3 3 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:95.8,100.3 4 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:103.57,106.22 3 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:113.2,113.22 1 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:106.22,108.12 2 1
+/Users/maanasp/ATOM/go/web-hello/web-hello/controller/logs/logs.go:108.12,111.4 2 1
