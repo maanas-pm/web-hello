@@ -12,12 +12,12 @@ import (
 	"github.com/maanas-pm/web-hello/models"
 )
 
-type Todo struct {
-	Id  string `json:"id"`
-	Title string `json:"title"`
-	Body  string `json:"body"`
-}
-
+const (
+	ID_NOT_INT_FORMAT = "Requested log id is not in int format"
+	ID_NOT_FOUND = "Requested log not found"
+	ID_ALREADY_EXISTS = "Log Id already exists, cannot override logs"
+	ID_DELETED = "Requested log deleted"
+)
 var m map[int64]models.Log
 
 func Routes() *chi.Mux {
@@ -37,7 +37,7 @@ func GetALog(w http.ResponseWriter, r *http.Request) {
 	logId := chi.URLParam(r, "logId")
 	i, err := strconv.ParseInt(logId, 10, 64)
 	if err != nil {
-                response["message"] = "Requested log id is not in int format"
+                response["message"] = ID_NOT_INT_FORMAT
 		render.Status(r, http.StatusBadRequest)
                 render.JSON(w, r, response)
 	} else {
@@ -45,7 +45,7 @@ func GetALog(w http.ResponseWriter, r *http.Request) {
 		if ok {
 			render.JSON(w, r, val)
 		} else {
-			response["message"] = "Requested log not found"
+			response["message"] = ID_NOT_FOUND
 			render.Status(r, http.StatusBadRequest)
 			render.JSON(w, r, response)
 		}
@@ -58,17 +58,17 @@ func DeleteLog(w http.ResponseWriter, r *http.Request) {
         i, err := strconv.ParseInt(logId, 10, 64)
         if err != nil {
                 response := make(map[string]string)
-                response["message"] = "Requested log id is not in int format"
+                response["message"] = ID_NOT_INT_FORMAT
 		render.Status(r, http.StatusBadRequest)
                 render.JSON(w, r, response)
         } else {
         	_, ok := m[i]
         	if ok {
                 	delete(m, i)
-                	response["message"] = "Requested log deleted"
+                	response["message"] = ID_DELETED
                 	render.JSON(w, r, response)
         	} else {
-                	response["message"] = "Requested log not found"
+                	response["message"] = ID_NOT_FOUND
 			render.Status(r, http.StatusBadRequest)
                 	render.JSON(w, r, response)
         	}
@@ -93,7 +93,7 @@ func AddLog(w http.ResponseWriter, r *http.Request) {
     	} else {
 		_, ok := m[t.Id]
 		if ok {
-	                response["message"] = "Log Id already exists, cannot override logs"
+	                response["message"] = ID_ALREADY_EXISTS
         	        render.Status(r, http.StatusBadRequest)
 			render.JSON(w, r, response)
 		} else {
